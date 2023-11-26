@@ -2,10 +2,9 @@
 
 import PostsList from "@/components/PostsList";
 import prisma from "@/lib/db";
-
 import { Metadata } from "next";
 import React from "react";
-import NotFound from "./[id]/not-found";
+import AddPostForm from "@/components/AddPostForm";
 
 export const metadata: Metadata = {
   title: "Create your post",
@@ -13,20 +12,18 @@ export const metadata: Metadata = {
 };
 
 const Posts = async () => {
-  try {
-    const posts = await prisma.post.findMany();
+  // let posts = [];
 
-    return (
-      <main className="text-center pt-16 px-5">
-        <h1 className="text-5xl font-semibold mb-7">All posts</h1>
+  const posts = await prisma?.post?.findMany();
 
-        <PostsList posts={posts} />
-      </main>
-    );
-  } catch (error) {
-    return <NotFound />;
-  }
+  return (
+    <main className="text-center pt-16 px-5">
+      <AddPostForm />
+      <h1 className="text-5xl font-semibold mb-7">All posts</h1>
 
+      <PostsList posts={posts} />
+    </main>
+  );
 };
 
 export default Posts;
