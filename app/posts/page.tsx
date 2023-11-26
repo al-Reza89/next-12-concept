@@ -2,6 +2,7 @@
 
 import PostsList from "@/components/PostsList";
 import prisma from "@/lib/db";
+
 import { Metadata } from "next";
 import React from "react";
 import NotFound from "./[id]/not-found";
@@ -25,6 +26,7 @@ const Posts = async () => {
   } catch (error) {
     return <NotFound />;
   }
+
 };
 
 export default Posts;
