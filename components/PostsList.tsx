@@ -1,20 +1,20 @@
-"use client";
+import prisma from "@/lib/db";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SubPostList from "./SubPostList";
 
-interface postslistProps {
-  posts: Post[];
-}
+interface postslistProps {}
 
-const PostsList: React.FC<postslistProps> = ({ posts }) => {
+// @ts-ignore
+const PostsList: React.FC<postslistProps> = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const posts = await prisma?.post.findMany();
+
   return (
     <>
       <ul>
-        {posts?.map((post) => (
-          <li key={post.id} className="max-w-[400px] mb-3 mx-auto">
-            <Link href={`/posts/${post.id}`}>{post.title}</Link>
-          </li>
-        ))}
+        <SubPostList posts={posts} />
       </ul>
     </>
   );

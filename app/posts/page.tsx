@@ -3,7 +3,7 @@
 import PostsList from "@/components/PostsList";
 import prisma from "@/lib/db";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 import AddPostForm from "@/components/AddPostForm";
 
 export const metadata: Metadata = {
@@ -12,16 +12,14 @@ export const metadata: Metadata = {
 };
 
 const Posts = async () => {
-  // let posts = [];
-
-  const posts = await prisma?.post?.findMany();
-
   return (
     <main className="text-center pt-16 px-5">
       <AddPostForm />
       <h1 className="text-5xl font-semibold mb-7">All posts</h1>
 
-      <PostsList posts={posts} />
+      <Suspense fallback="loading...">
+        <PostsList />
+      </Suspense>
     </main>
   );
 };
